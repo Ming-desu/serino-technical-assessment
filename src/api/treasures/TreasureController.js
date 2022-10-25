@@ -159,7 +159,7 @@ exports.getAll = async (req, res, next) => {
           try {
             const treasure_boxes = await sequelize.query(`
               SELECT * FROM money_values WHERE treasure_id = ${treasure.id}
-                ${prize_value === undefined ? ` AND amt = (SELECT MIN(amt) FROM money_values WHERE treasure_id = ${treasure.id})` : ` AND amt = ${prize_value}`}
+                ${prize_value === undefined ? ` AND amt = (SELECT MIN(amt) FROM money_values WHERE treasure_id = ${treasure.id})` : ` AND amt >= ${prize_value}`}
             `, { raw: true, type: QueryTypes.SELECT });
 
             resolve({
